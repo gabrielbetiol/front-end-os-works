@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "front-end-os-works"
+  "defaultProject": "front-end-os-works",
+  "cli": {
+    "analytics": false
+  }
 }
