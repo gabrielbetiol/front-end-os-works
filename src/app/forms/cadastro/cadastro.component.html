@@ -1,1 +1,48 @@
-<p>cadastro works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Cadastre-se</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="cadastroForm" (ngSubmit)="insertUser()">
+      <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome">
+      </mat-form-field>
+      <mat-error *ngIf="isValidInput('nome')">
+        Nome é obrigatório
+      </mat-error>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
+      <mat-error *ngIf="isValidInput('email')">
+        E-mail é obrigatório
+      </mat-error>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="senha">
+      </mat-form-field>
+      <mat-error *ngIf="isValidInput('senha')">
+        Senha é obrigatório
+      </mat-error>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Telefone</mat-label>
+        <input matInput formControlName="telefone">
+      </mat-form-field>
+      <mat-error *ngIf="isValidInput('telefone')">
+        Telefone é obrigatório
+      </mat-error>
+      <br>
+      <button mat-raised-button color="primary" type="submit" class="button mr-2" [disabled]="!cadastroForm.valid">
+        Enviar
+      </button>
+    </form>
+    <br>
+    <button mat-raised-button color="primary" class="button" (click)="resetForm()">
+      Limpar
+    </button>
+  </mat-card-content>
+</mat-card>

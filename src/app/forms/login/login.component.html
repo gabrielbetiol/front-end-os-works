@@ -1,72 +1,32 @@
-<div class="container" *ngIf="!post; else forminfo" novalidate>
-  <form
-    [formGroup]="formGroup"
-    (ngSubmit)="onSubmit(formGroup.value)"
-    class="form"
-  >
-    <div class="form-group">
-      <mat-form-field class="form-element">
-        <input matInput placeholder="Name" formControlName="name" />
-        <mat-error *ngIf="!name.valid && name.touched">
-          {{ titleAlert }}
-        </mat-error>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Já é cadastrado?</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="checkLogin(this.loginForm.controls['email'].value, loginForm.controls['senha'].value)">
+      <mat-form-field appearance="fill">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" formControlName="email" />
       </mat-form-field>
-
-      <mat-form-field class="form-element">
-        <textarea
-          matInput
-          placeholder="Description"
-          formControlName="description"
-        ></textarea>
-        <mat-error
-          *ngIf="
-            !formGroup.controls['description'].valid &&
-            formGroup.controls['description'].touched
-          "
-        >
-          Required field, must be between 5 and 10 characters.
-        </mat-error>
+      <mat-error *ngIf="isValidInput('email')">
+        E-mail é obrigatório
+      </mat-error>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="senha"/>
       </mat-form-field>
-
-      <mat-form-field class="form-element">
-        <input matInput placeholder="Password" formControlName="password" />
-        <mat-hint
-          >Choose a password of at least eight characters, one uppercase letter
-          and one number</mat-hint
-        >
-        <mat-error
-          *ngIf="
-            !formGroup.controls['password'].valid &&
-            formGroup.controls['password'].touched
-          "
-        >
-          {{ getErrorPassword() }}
-        </mat-error>
-      </mat-form-field>
-
-      <div class="form-element">
-        <mat-checkbox formControlName="validate" value="1"
-          >Name min. 3 characters</mat-checkbox
-        >
-      </div>
-
-      <div class="form-element">
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          class="button"
-          [disabled]="!formGroup.valid"
-        >
-          Submit Form
-        </button>
-      </div>
-    </div>
-  </form>
-</div>
-
-<ng-template #forminfo>
-  <div class="container">
-    {{ post | json }}
-  </div>
-</ng-template>
+      <mat-error *ngIf="isValidInput('senha')">
+        Senha é obrigatório
+      </mat-error>
+      <br>
+      <button mat-raised-button color="primary" type="submit" class="button mr-2" [disabled]="!loginForm.valid">
+        Entrar
+      </button>
+    </form>
+    <br>
+    <button mat-raised-button color="primary" class="button" (click)="resetForm()">
+      Limpar
+    </button>
+  </mat-card-content>
+</mat-card>
